@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Timeline</h2>
+        <div class="row">
+            <!-- Ejemplo de contenido de otros usuarios -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Username</h5>
+                        <p class="card-text">Nombre Completo</p>
+                        <p class="card-text">Caption de la imagen o video.</p>
+                        <p class="card-text"><small class="text-muted">100 likes</small></p>
+                        <button class="btn btn-primary btn-like">Like</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Repite para más contenido -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.btn-like').click(function() {
+                const btn = $(this);
+                if (btn.text() === 'Like') {
+                    btn.text('Unlike');
+                    // Aquí puedes incrementar el contador de likes
+                } else {
+                    btn.text('Like');
+                    // Aquí puedes decrementar el contador de likes
+                }
+            });
+        });
+    </script>
+</body>
+</html>

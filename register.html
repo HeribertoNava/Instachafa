@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Registro de Nuevo Usuario</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Password</label>
+                <input type="password" class="form-control" id="confirmPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="firstName">Nombre</label>
+                <input type="text" class="form-control" id="firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Apellidos</label>
+                <input type="text" class="form-control" id="lastName">
+            </div>
+            <div class="form-group">
+                <label for="gender">Género</label>
+                <select class="form-control" id="gender" required>
+                    <option value="">[Seleccione]</option>
+                    <option value="Hombre">Hombre</option>
+                    <option value="Mujer">Mujer</option>
+                    <option value="No Aplica">No Aplica</option>
+                    <option value="Prefiero no Decirlo">Prefiero no Decirlo</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                <input type="text" class="form-control mt-2" id="otherGender" placeholder="Especifique" style="display:none;">
+            </div>
+            <div class="form-group">
+                <label for="birthDate">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="birthDate" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#gender').change(function() {
+                if ($(this).val() === 'Otro') {
+                    $('#otherGender').show();
+                } else {
+                    $('#otherGender').hide();
+                }
+            });
+
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault();
+                const username = $('#username').val();
+                const password = $('#password').val();
+                const confirmPassword = $('#confirmPassword').val();
+                const email = $('#email').val();
+                const gender = $('#gender').val();
+                const birthDate = new Date($('#birthDate').val());
+                const today = new Date();
+                const age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+
+                if (password !== confirmPassword) {
+                    alert('Las contraseñas no coinciden.');
+                } else if (age < 18) {
+                    alert('Debes tener al menos 18 años.');
+                } else if (!validateEmail(email)) {
+                    alert('Ingrese un correo electrónico válido.');
+                } else if (!username || !password || !confirmPassword || !email || !gender || !$('#birthDate').val()) {
+                    alert('Por favor, complete todos los campos obligatorios.');
+                } else {
+                    alert('Registro exitoso.');
+                    // Aquí puedes redirigir al timeline o a otra página si es necesario
+                }
+            });
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+        });
+    </script>
+</body>
+</html>
